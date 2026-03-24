@@ -118,7 +118,7 @@ def insert_ca(compartment, phi, tau):
     ca = moose.copy(CaPool.prototype, compartment)[0]
     ca.B = phi / (np.pi * compartment.length * compartment.diameter)
     ca.tau = tau
-    print ca.path, ca.B, ca.tau
+    print(ca.path, ca.B, ca.tau)
     for channel in moose.wildcardFind('%s/#[TYPE=HHChannel]' % (compartment.path)):
         chan = channel[0]
         if chan.name.startswith('KC') or chan.name.startswith('KAHP'):
@@ -179,7 +179,7 @@ class TestSingleComp(unittest.TestCase):
         moose.start(simtime)
         end = datetime.now()
         delta = end - start
-        print 'Simulation of %g s finished in %g s' % (simtime, delta.seconds + delta.microseconds*1e-6)
+        print('Simulation of %g s finished in %g s' % (simtime, delta.seconds + delta.microseconds*1e-6))
 
 
     def testDefault(self):
@@ -189,8 +189,8 @@ class TestSingleComp(unittest.TestCase):
             nrndata = np.loadtxt('../nrn/data/singlecomp_Vm.dat')
             vm_axis.plot(nrndata[:,0], nrndata[:,1], label='Vm (mV) - nrn')
             ca_axis.plot(nrndata[:,0], nrndata[:,2], label='Ca (mM) - nrn')
-        except IOError, e:
-            print e
+        except IOError as e:
+            print(e)
         tseries = np.linspace(0, simtime, len(self.tables['Vm'].vec)) * 1e3
         # plotcount = len(channel_density) + 1
         # rows = int(np.sqrt(plotcount) + 0.5)

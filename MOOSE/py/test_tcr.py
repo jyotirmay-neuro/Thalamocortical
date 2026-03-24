@@ -80,9 +80,9 @@ class TestTCR(SingleCellCurrentStepTest):
         tab = moose.Table('%s/command' % (self.data_container.path))
         moose.connect(tab, 'requestData', clamp, 'get_command')
         for ii in moose.wildcardFind('/##[TYPE=VClamp]'):
-            print ii.path
+            print(ii.path)
         self.runsim(simtime)
-        print tab, len(tab.vec)
+        print(tab, len(tab.vec))
         pylab.plot(pylab.linspace(0, simtime, len(tab.vec)), tab.vec, 'kx')
         self.plot_vm()
 

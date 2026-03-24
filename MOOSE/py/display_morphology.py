@@ -125,7 +125,7 @@ import sys
 from getopt import getopt
 
 if __name__ == '__main__':
-    print sys.argv
+    print(sys.argv)
     optlist, args = getopt(sys.argv[1:], 'lhp:c:', ['help'])
     celltype = ''
     pdf = ''
@@ -138,29 +138,29 @@ if __name__ == '__main__':
         elif arg[0] == '-l':
             label = True
         elif arg[0] == '-h' or arg[0] == '--help':
-            print 'Usage: %s [-c CellType [-p filename]]' % (sys.argv[0])
-            print 'Display/save the morphology of cell type "CellType".'
-            print 'Options:'
-            print '-c celltype (optional) display only an instance of the specified cell type. If CellType is empty or not specified, all prototype cells are displayed.'
-            print '-l label the compartments'
-            print '-p  filename (optional) save outputin a pdf file named "filename".'
-            print '-h,--help print this help'
+            print('Usage: %s [-c CellType [-p filename]]' % (sys.argv[0]))
+            print('Display/save the morphology of cell type "CellType".')
+            print('Options:')
+            print('-c celltype (optional) display only an instance of the specified cell type. If CellType is empty or not specified, all prototype cells are displayed.')
+            print('-l label the compartments')
+            print('-p  filename (optional) save outputin a pdf file named "filename".')
+            print('-h,--help print this help')
             sys.exit(0)
-    print 'args', optlist, args
+    print('args', optlist, args)
     figures = []
     if len(celltype) > 0:
         try:
             fig = plt.figure()
             figures.append(fig)
             cell = cells.init_prototypes()[celltype]
-            print 'Label', label
+            print('Label', label)
             plot_cell_topology(cell, label=label)
         except KeyError:
-            print '%s: no such cell type. Available are:' % (celltype)
+            print('%s: no such cell type. Available are:' % (celltype))
             for ii in cells.init_prototypes().keys():
-                print ii,
-            print 
-            sys.exit(1)    
+                print(ii, end=' ')
+            print()
+            sys.exit(1)
     else:
         for cell, proto in cells.init_prototypes().items():
             figures.append(plt.figure())

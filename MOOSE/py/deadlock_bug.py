@@ -56,7 +56,7 @@ def read_keyvals(filename):
                 if not tokens:
                     continue
                 if len(tokens) != 2:
-                    print filename, ' - Tokens: ', tokens, len(tokens)
+                    print(filename, ' - Tokens: ', tokens, len(tokens))
                     return None
                 ret[tokens[1]].add(tokens[0])
     except IOError:
@@ -191,7 +191,7 @@ import uuid
 import moose
 
 def setupClocks(dt):
-    print 'Setting up clocks'
+    print('Setting up clocks')
     for ii in range(10):
         moose.setClock(ii, dt)
 
@@ -234,7 +234,7 @@ def runsim(simtime, steplength=0.01):
     clock = moose.element('/clock')
     while clock.currentTime < simtime:
         moose.start(steplength)
-        print 'Current simulation time:', clock.currentTime
+        print('Current simulation time:', clock.currentTime)
         time.sleep(0.05)
 
 pulsearray = [[.05, 100e-3, 0.9e-9],
@@ -250,7 +250,7 @@ class TestTCR(unittest.TestCase):
     def setUp(self):
         self.testId = uuid.uuid4().int
         params = setupCurrentStepModel(self.testId, 'TCR', pulsearray, simdt)
-        print 'Starting simulation'
+        print('Starting simulation')
         runsim(simtime)
         
     def testDefault(self):

@@ -72,29 +72,29 @@ def setup_current_step_model(model_container,
     """
     cell_class = eval('cells.%s' % (celltype))
     cell = cell_class('%s/%s' % (model_container.path, celltype))
-    print '111111', cell.path
+    print('111111', cell.path)
     pulsegen = moose.PulseGen('%s/pulse' % (model_container.path))
-    print '121221211', pulsegen.path
+    print('121221211', pulsegen.path)
     pulsegen.count = len(pulsearray)
-    print '7777777', pulsegen.count, pulsegen.id_
+    print('7777777', pulsegen.count, pulsegen.id_)
     for ii in range(len(pulsearray)):
-        print '999999', pulsegen.id_, pulsegen.count
-        print '-', pulsegen.delay[ii]
+        print('999999', pulsegen.id_, pulsegen.count)
+        print('-', pulsegen.delay[ii])
         pulsegen.delay[ii] = pulsearray[ii][0]
         pulsegen.width[ii] = pulsearray[ii][1]
         pulsegen.level[ii] = pulsearray[ii][2]
-        print '8888888', ii, pulsegen.delay[ii]
+        print('8888888', ii, pulsegen.delay[ii])
     moose.connect(pulsegen, 'outputOut', cell.soma, 'injectMsg')
-    print '22222'
+    print('22222')
     presyn_vm = moose.Table('%s/presynVm' % (data_container.path))
-    print '33333'
+    print('33333')
     soma_vm =  moose.Table('%s/somaVm' % (data_container.path))
-    print '44444'
+    print('44444')
     moose.connect(presyn_vm, 'requestData', cell.presynaptic, 'get_Vm')
     moose.connect(soma_vm, 'requestData', cell.soma, 'get_Vm')
     pulse_table = moose.Table('%s/injectCurrent' % (data_container.path))
     moose.connect(pulse_table, 'requestData', pulsegen, 'get_output')
-    print '55555'
+    print('55555')
     return {'cell': cell,
             'stimulus': pulsegen,
             'presynVm': presyn_vm,
@@ -213,7 +213,7 @@ class SingleCellCurrentStepTest(unittest.TestCase):
             pylab.plot(nrn_data[nrn_indices,0], nrn_data[nrn_indices,1], 
                        label='Vm (mV) - neuron')
         except IOError:
-            print 'No neuron data found.'
+            print('No neuron data found.')
         pylab.legend()
         pylab.subplot(212)
         pylab.title('Presynaptic Vm')
@@ -225,10 +225,10 @@ class SingleCellCurrentStepTest(unittest.TestCase):
             nrn_data = np.loadtxt('../nrn/data/%s_presynaptic_Vm.dat' % \
                                       (self.celltype))
             nrn_indices = np.nonzero(nrn_data[:, 0] <= self.tseries[-1]*1e3)[0]
-            pylab.plot(nrn_data[nrn_indices,0], nrn_data[nrn_indices,1], 
+            pylab.plot(nrn_data[nrn_indices,0], nrn_data[nrn_indices,1],
                        label='Vm (mV) - neuron')
         except IOError:
-            print 'No neuron data found.'
+            print('No neuron data found.')
         pylab.legend()
         pylab.show()
         

@@ -134,7 +134,7 @@ class HHChanView(QtGui.QWidget):
         v = np.linspace(gate.min, gate.max, len(m))
         self.mhaxes.plot(v, m, label='%s %s' % (gate.path, mlabel))
         self.tauaxes.plot(v, tau, label='%s %s' % (gate.path, taulabel))
-        print 'Plotted', gate.path, 'vmin=', gate.min, 'vmax=', gate.max, 'm[0]=', m[0], 'm[last]=', m[-1], 'tau[0]=', tau[0], 'tau[last]=', tau[-1]
+        print('Plotted', gate.path, 'vmin=', gate.min, 'vmax=', gate.max, 'm[0]=', m[0], 'm[last]=', m[-1], 'tau[0]=', tau[0], 'tau[last]=', tau[-1])
         
     def plotActInact(self):
         """Plot the activation and inactivation variables of the selected channels"""
@@ -189,7 +189,7 @@ class NetworkXWidget(QtGui.QWidget):
         axon, sd = axon_dendrites(g)
         sizes = node_sizes(g) * 50
         if len(sizes) == 0:
-            print 'Empty graph for cell. Make sure proto file has `*asymmetric` on top. I cannot handle symmetric compartmental connections'
+            print('Empty graph for cell. Make sure proto file has `*asymmetric` on top. I cannot handle symmetric compartmental connections')
             return
         weights = np.array([g.edge[e[0]][e[1]]['weight'] for e in g.edges()])
         pos = nx.graphviz_layout(g, prog='twopi')
@@ -316,7 +316,7 @@ class CellView(QtGui.QWidget):
 
     def displayCellMorphology(self, cellpath):
         cell = moose.element(cellpath)
-        print 'HERE'
+        print('HERE')
         graph = cell_to_graph(cell)
         self.getCellMorphologyWidget().displayGraph(graph)
 
@@ -336,11 +336,11 @@ class CellView(QtGui.QWidget):
                                            [1e9, 0, 0]])
         # moose.le(model_container)
         # moose.le(data_container)
-        print '11111'
-        print model_container.path, data_container.path
+        print('11111')
+        print(model_container.path, data_container.path)
         params['modelRoot'] = model_container.path
         params['dataRoot'] = data_container.path
-        print 'here'
+        print('here')
         return params
 
     def displaySelected(self):
@@ -357,7 +357,7 @@ class CellView(QtGui.QWidget):
         assert(len(cellnames) == 1)        
         name = cellnames[0]
         params = self.createCell(name)
-        print 'Here ......'
+        print('Here ......')
         hsolve = moose.HSolve('%s/solver' % (params['cell'].path))
         hsolve.dt = simdt
         hsolve.target = params['cell'].path
@@ -377,7 +377,7 @@ class CellView(QtGui.QWidget):
         moose.start(simtime)
         te = datetime.now()
         td = te - ts
-        print 'Simulating %g s took %g s of computer time' % (simtime, td.days * 86400 + td.seconds + td.microseconds * 1e-6)
+        print('Simulating %g s took %g s of computer time' % (simtime, td.days * 86400 + td.seconds + td.microseconds * 1e-6))
         ts = np.linspace(0, simtime, len(params['somaVm'].vec))
         vm = params['somaVm'].vec
         stim = params['injectionCurrent'].vec
