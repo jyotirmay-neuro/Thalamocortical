@@ -76,9 +76,9 @@ def setup_current_step_model(model_container,
     pulsegen = moose.PulseGen('%s/pulse' % (model_container.path))
     print('121221211', pulsegen.path)
     pulsegen.count = len(pulsearray)
-    print('7777777', pulsegen.count, pulsegen.id_)
+    print('7777777', pulsegen.count, pulsegen.id)
     for ii in range(len(pulsearray)):
-        print('999999', pulsegen.id_, pulsegen.count)
+        print('999999', pulsegen.id, pulsegen.count)
         print('-', pulsegen.delay[ii])
         pulsegen.delay[ii] = pulsearray[ii][0]
         pulsegen.width[ii] = pulsearray[ii][1]
