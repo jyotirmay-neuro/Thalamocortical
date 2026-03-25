@@ -186,15 +186,15 @@ class SingleCellCurrentStepTest(unittest.TestCase):
     def savedata(self):
         # Now save the data
         for table_id in self.data_container.children:
-            ts = np.linspace(0, self.simtime, len(table_id[0].vector))
-            data = np.vstack((ts, table_id[0].vector))
-            fname = os.path.join(config.data_dir, 
-                                 '%s_%s_%s_%s.dat' % (self.celltype, 
-                                                      table_id[0].name,
-                                                      self.solver, 
+            ts = np.linspace(0, self.simtime, len(table_id.vector))
+            data = np.vstack((ts, table_id.vector))
+            fname = os.path.join(config.data_dir,
+                                 '%s_%s_%s_%s.dat' % (self.celltype,
+                                                      table_id.name,
+                                                      self.solver,
                                                       config.filename_suffix))
             np.savetxt(fname, np.transpose(data))
-            config.logger.info('Saved %s in %s' % (table_id[0].name, fname))
+            config.logger.info('Saved %s in %s' % (table_id.name, fname))
         
     def plot_vm(self):
         """Plot Vm for presynaptic compartment and soma - along with

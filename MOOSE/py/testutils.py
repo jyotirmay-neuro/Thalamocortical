@@ -187,7 +187,7 @@ def setup_single_compartment(model_container, data_container, channel_proto, Gba
 
     """
     comp = make_testcomp(model_container.path)
-    channel = moose.copy(channel_proto, comp, channel_proto.name)[0]
+    channel = moose.copy(channel_proto, comp, channel_proto.name)
     moose.connect(channel, 'channel', comp, 'channel')
     channel.Gbar = Gbar
     pulsegen = make_pulsegen(model_container.path)
@@ -207,9 +207,9 @@ def setup_single_compartment(model_container, data_container, channel_proto, Gba
 
 def insert_hhchannel(compartment, channelclass, gbar):
     channel = moose.copy(channelclass.prototype, compartment)
-    channel[0].Gbar = gbar
+    channel.Gbar = gbar
     moose.connect(channel, 'channel', compartment, 'channel')
-    return channel[0]
+    return channel
     
 def compare_data_arrays(left, right, relative='maxw', plot=False, x_range=None):
     """Compare two data arrays and return some measure of the

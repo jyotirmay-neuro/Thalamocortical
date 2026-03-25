@@ -106,7 +106,7 @@ def create_compartment(path, length, diameter, initVm, Em, Rm, Cm, Ra, specific=
     return comp
 
 def insert_channel(compartment, channeclass, gbar, density=False):
-    channel = moose.copy(channeclass.prototype, compartment)[0]
+    channel = moose.copy(channeclass.prototype, compartment)
     if not density:
         channel.Gbar = gbar
     else:
@@ -115,7 +115,7 @@ def insert_channel(compartment, channeclass, gbar, density=False):
     return channel
 
 def insert_ca(compartment, phi, tau):
-    ca = moose.copy(CaPool.prototype, compartment)[0]
+    ca = moose.copy(CaPool.prototype, compartment)
     ca.B = phi / (np.pi * compartment.length * compartment.diameter)
     ca.tau = tau
     print(ca.path, ca.B, ca.tau)

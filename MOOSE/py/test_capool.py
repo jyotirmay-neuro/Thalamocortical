@@ -53,7 +53,7 @@ def run_capool(poolname, Gbar, simtime):
         channelbase.prototypes['CaL'],
         Gbar)
     channelname = 'CaL'
-    capool = moose.copy(CaPool.prototype, params['compartment'], 'CaPool')[0]
+    capool = moose.copy(CaPool.prototype, params['compartment'], 'CaPool')
     moose.connect(params['channel'], 'IkOut', capool, 'current')
     # The B is obtained from phi in NEURON by dividing it with
     # compartment area in cm2 and multiplying by 1e3 for /mA->/A and
