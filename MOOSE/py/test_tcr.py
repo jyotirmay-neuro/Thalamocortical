@@ -76,9 +76,9 @@ class TestTCR(SingleCellCurrentStepTest):
         self.pulsegen.delay[0] = 100e-3
         self.pulsegen.width[0] = 100e-3
         self.pulsegen.level[0] = -10e-3
-        moose.connect(self.pulsegen, 'outputOut', clamp, 'set_command')
+        moose.connect(self.pulsegen, 'output', clamp, 'commandIn')
         tab = moose.Table('%s/command' % (self.data_container.path))
-        moose.connect(tab, 'requestData', clamp, 'get_command')
+        moose.connect(tab, 'requestOut', clamp, 'getCommand')
         for ii in moose.wildcardFind('/##[TYPE=VClamp]'):
             print(ii.path)
         self.runsim(simtime)

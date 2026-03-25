@@ -62,7 +62,7 @@ def run_capool(poolname, Gbar, simtime):
     # beta = 1/tau (ms) = 0.02 => tau = 50 ms
     capool.tau = 50e-3
     ca_data = moose.Table('%s/Ca' % (data.path))
-    moose.connect(ca_data, 'requestData', capool, 'get_Ca')
+    moose.connect(ca_data, 'requestOut', capool, 'getCa')
     setup_clocks(simdt, plotdt)
     assign_clocks(model, data)
     vm_data = params['Vm']

@@ -29,7 +29,7 @@
 # Code:
 
 from datetime import datetime
-import ConfigParser as configparser
+import configparser
 import logging
 import numpy
 import os
@@ -80,7 +80,7 @@ channel_names = ['AR',
 ############################################
 # Parse configuration file
 ############################################
-_parser = configparser.SafeConfigParser()
+_parser = configparser.ConfigParser()
 _parser.optionxform = str
 _parser.read(['defaults.ini', 'custom.ini'])
 

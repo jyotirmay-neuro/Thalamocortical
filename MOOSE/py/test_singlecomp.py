@@ -141,7 +141,7 @@ class TestSingleComp(unittest.TestCase):
         self.tables = {}
         tab = moose.Table('%s/Vm' % (self.data.path))
         self.tables['Vm'] = tab
-        moose.connect(tab, 'requestData', self.soma, 'get_Vm')
+        moose.connect(tab, 'requestOut', self.soma, 'getVm')
         for channelname, conductance in channel_density.items():
             chanclass = eval(channelname)
             channel = insert_channel(self.soma, chanclass, conductance, density=True)
@@ -154,18 +154,18 @@ class TestSingleComp(unittest.TestCase):
             elif issubclass(chanclass, AR):
                 channel.Ek = erev['AR']
             tab = moose.Table('%s/%s' % (self.data.path, channelname))
-            moose.connect(tab, 'requestData', channel, 'get_Gk')
+            moose.connect(tab, 'requestOut', channel, 'getGk')
             self.tables['Gk_'+channel.name] = tab
         archan = moose.HHChannel(self.soma.path + '/AR')
         archan.X = 0.0
         ca = insert_ca(self.soma, 2.6e7, 50e-3)
         tab = moose.Table('%s/Ca' % (self.data.path))
         self.tables['Ca'] = tab
-        moose.connect(tab, 'requestData', ca, 'get_Ca')
+        moose.connect(tab, 'requestOut', ca, 'getCa')
         self.pulsegen = moose.PulseGen('%s/inject' % (self.model.path))
-        moose.connect(self.pulsegen, 'outputOut', self.soma, 'injectMsg')
+        moose.connect(self.pulsegen, 'output', self.soma, 'injectMsg')
         tab = moose.Table('%s/injection' % (self.data.path))
-        moose.connect(tab, 'requestData', self.pulsegen, 'get_output')
+        moose.connect(tab, 'requestOut', self.pulsegen, 'getOutputValue')
         self.tables['pulsegen'] = tab
         self.pulsegen.count = len(stimulus)
         for ii in range(len(stimulus)):

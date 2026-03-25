@@ -191,7 +191,7 @@ class NetworkXWidget(QtGui.QWidget):
         if len(sizes) == 0:
             print('Empty graph for cell. Make sure proto file has `*asymmetric` on top. I cannot handle symmetric compartmental connections')
             return
-        weights = np.array([g.edge[e[0]][e[1]]['weight'] for e in g.edges()])
+        weights = np.array([g.edges[e[0], e[1]]['weight'] for e in g.edges()])
         pos = nx.graphviz_layout(g, prog='twopi')
         xmin, ymin, xmax, ymax = 1e9, 1e9, -1e9, -1e9
         for p in pos.values():

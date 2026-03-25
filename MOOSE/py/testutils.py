@@ -191,13 +191,13 @@ def setup_single_compartment(model_container, data_container, channel_proto, Gba
     moose.connect(channel, 'channel', comp, 'channel')
     channel.Gbar = Gbar
     pulsegen = make_pulsegen(model_container.path)
-    moose.connect(pulsegen, 'outputOut', comp, 'injectMsg')
+    moose.connect(pulsegen, 'output', comp, 'injectMsg')
     vm_table = moose.Table('%s/Vm' % (data_container.path))
-    moose.connect(vm_table, 'requestData', comp, 'get_Vm')
+    moose.connect(vm_table, 'requestOut', comp, 'getVm')
     gk_table = moose.Table('%s/Gk' % (data_container.path))
-    moose.connect(gk_table, 'requestData', channel, 'get_Gk')
+    moose.connect(gk_table, 'requestOut', channel, 'getGk')
     ik_table = moose.Table('%s/Ik' % (data_container.path))
-    moose.connect(ik_table, 'requestData', channel, 'get_Ik')
+    moose.connect(ik_table, 'requestOut', channel, 'getIk')
     return {'compartment': comp,
             'stimulus': pulsegen,
             'channel': channel,
@@ -312,8 +312,8 @@ def compare_cell_dump(left, right, rtol=1e-3, atol=1e-8, row_header=True, col_he
     NEURON and MOOSE."""
     print('Comparing:', left, 'with', right)
     ret = True
-    left_file = open(left, 'rb')
-    right_file = open(right, 'rb')
+    left_file = open(left, 'r')
+    right_file = open(right, 'r')
     left_reader = csv.DictReader(left_file, delimiter=',')
     right_reader = csv.DictReader(right_file, delimiter=',')
     lheader = list(left_reader.fieldnames)

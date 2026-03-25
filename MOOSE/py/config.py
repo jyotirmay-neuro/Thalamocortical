@@ -108,6 +108,7 @@ spikeRecordingSettings.fields = {
 # Logging
 #---------------------------------------------------------------------
 import os
+import tempfile
 from datetime import datetime
 import logging
 
@@ -115,7 +116,7 @@ timestamp = datetime.now()
 mypid = os.getpid()
 data_dir_prefix = 'data'
 if not os.access(data_dir_prefix, os.W_OK):
-    data_dir_prefix = '/tmp/traub2005_data'
+    data_dir_prefix = os.path.join(tempfile.gettempdir(), 'traub2005_data')
 if not os.access(data_dir_prefix, os.F_OK):
     os.mkdir(data_dir_prefix)
 data_dir = os.path.join(data_dir_prefix, timestamp.strftime('%Y_%m_%d'))

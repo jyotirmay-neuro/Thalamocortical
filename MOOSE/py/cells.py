@@ -172,10 +172,10 @@ def assign_depths(cell, depthdict, leveldict):
             comp.z = z
 
             
-class CellMeta(type):
+class CellMeta(type(moose.Neuron)):
     def __new__(cls, name, bases, cdict):
         if name != 'CellBase':
-            proto = read_prototype(name, cdict)            
+            proto = read_prototype(name, cdict)
             annotation = None
             if 'annotation' in cdict:
                 annotation = cdict['annotation']
@@ -190,11 +190,10 @@ class CellMeta(type):
             if 'soma_tauCa' in cdict:
                 moose.element(proto.path + '/comp_1/CaPool').tau = cdict['soma_tauCa']
             cdict['prototype'] = proto
-        return type.__new__(cls, name, bases, cdict)
+        return super().__new__(cls, name, bases, cdict)
 
     
-class CellBase(moose.Neuron):
-    __metaclass__ = CellMeta
+class CellBase(moose.Neuron, metaclass=CellMeta):
     annotation = {'cno': 'cno_0000020'}
     def __init__(self, path):
         if not moose.exists(path):

@@ -107,13 +107,13 @@ def get_class_field(name, cdict, bases, fieldname, default=None):
     return default
             
 
-class ChannelMeta(type):
-    def __new__(cls, name, bases, cdict):     
+class ChannelMeta(type(moose.HHChannel)):
+    def __new__(cls, name, bases, cdict):
         global prototypes
         # classes that set absract=True will be
         # abstract classes. Others will have the prototype insatntiated.
         if  'abstract' in cdict and cdict['abstract'] == True:
-            return type.__new__(cls, name, bases, cdict)
+            return super().__new__(cls, name, bases, cdict)
         proto = moose.HHChannel('%s/%s' % (config.modelSettings.libpath, name))
         xpower = get_class_field(name, cdict, bases, 'Xpower', default=0.0)
         if xpower > 0:
@@ -158,14 +158,13 @@ class ChannelMeta(type):
             # print proto.path, info.notes
         cdict['prototype'] = proto
         prototypes[name] = proto
-        config.logger.info('Created prototype: %s of class %s' % (proto.path, name))        
-        return type.__new__(cls, name, bases, cdict)
+        config.logger.info('Created prototype: %s of class %s' % (proto.path, name))
+        return super().__new__(cls, name, bases, cdict)
 
 
-class ChannelBase(moose.HHChannel):
+class ChannelBase(moose.HHChannel, metaclass=ChannelMeta):
     annotation = {'cno': 'cno_0000047'}
     abstract = True
-    __metaclass__ = ChannelMeta
     def __init__(self, path, xpower=1, ypower=0, Ek=0.0):
         moose.HHChannel.__init__(self, path)
 

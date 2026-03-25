@@ -135,18 +135,17 @@ def assign_depths(cell, depthdict, leveldict):
             comp.z = z
 
             
-class CellMeta(type):
+class CellMeta(type(moose.Neutral)):
     def __new__(cls, name, bases, cdict):
         if name != 'CellBase':
             proto = read_prototype(name, cdict)
             if 'soma_tauCa' in cdict:
                 moose.element(proto.path + '/comp_1/CaPool').tau = cdict['soma_tauCa']
             cdict['prototype'] = proto
-        return type.__new__(cls, name, bases, cdict)
+        return super().__new__(cls, name, bases, cdict)
 
     
-class CellBase(moose.Neutral):
-    __metaclass__ = CellMeta
+class CellBase(moose.Neutral, metaclass=CellMeta):
     def __init__(self, path):
         if not moose.exists(path):
             path_tokens = path.rpartition('/')
@@ -213,11 +212,11 @@ def setupCurrentStepModel(testId, celltype, pulsearray, dt):
         pulsegen.delay[ii] = pulsearray[ii][0]
         pulsegen.width[ii] = pulsearray[ii][1]
         pulsegen.level[ii] = pulsearray[ii][2]
-    moose.connect(pulsegen, 'outputOut', cell.soma, 'injectMsg')
+    moose.connect(pulsegen, 'output', cell.soma, 'injectMsg')
     somaVm = moose.Table('%s/vm' % (dataContainer.path))
-    moose.connect(somaVm, 'requestData', cell.soma, 'get_Vm')
+    moose.connect(somaVm, 'requestOut', cell.soma, 'getVm')
     pulseTable = moose.Table('%s/pulse' % (dataContainer.path))
-    moose.connect(pulseTable, 'requestData', pulsegen, 'get_output')
+    moose.connect(pulseTable, 'requestOut', pulsegen, 'getOutputValue')
     setupClocks(dt)
     moose.useClock(0, '%s/##[ISA=Compartment]' % (cell.path), 'init')
     moose.useClock(1, '%s/##[ISA=Compartment]' % (cell.path), 'process')

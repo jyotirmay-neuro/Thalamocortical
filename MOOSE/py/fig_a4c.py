@@ -142,9 +142,9 @@ def run_model():
     tab_d2 = moose.Table('%s/d2_Vm' % (data.path))
     tab_soma = moose.Table('%s/soma_Vm' % (data.path))
     tab_stim = moose.Table('%s/stim' % (data.path))
-    moose.connect(tab_d1, 'requestData', comp_d1, 'get_Vm')
-    moose.connect(tab_d2, 'requestData', comp_d2, 'get_Vm')
-    moose.connect(tab_soma, 'requestData', comp_soma, 'get_Vm')
+    moose.connect(tab_d1, 'requestOut', comp_d1, 'getVm')
+    moose.connect(tab_d2, 'requestOut', comp_d2, 'getVm')
+    moose.connect(tab_soma, 'requestOut', comp_soma, 'getVm')
     moose.connect(stim, 'output', tab_stim, 'input')
     solver = moose.HSolve('%s/solver' % (cell.path))
     solver.dt = simdt

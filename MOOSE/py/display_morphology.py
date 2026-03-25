@@ -68,20 +68,20 @@ def cell_to_graph(cell, label=False):
 
     """        
     soma = moose.element('%s/comp_1' % (cell.path))
-    if len(soma.neighbours['axial']) > 0:
+    if len(soma.neighbors['axial']) > 0:
         msg = 'raxial'
-    elif len(soma.neighbours['distal']) > 0:
+    elif len(soma.neighbors['distal']) > 0:
         msg = 'distal'
     else:
-        raise Exception('No neighbours on raxial or distal')
+        raise Exception('No neighbors on raxial or distal')
     es = [(c1.path, c2.path, {'weight': 2/ (moose.Compartment(c1).Ra + moose.Compartment(c2).Ra)}) \
               for c1 in moose.wildcardFind('%s/##[ISA=Compartment]' % (cell.path)) \
-              for c2 in moose.Compartment(c1).neighbours[msg]]
+              for c2 in moose.Compartment(c1).neighbors[msg]]
     g = nx.Graph()
     g.add_edges_from(es)
     if label:
         for v in g.nodes():
-            g.node[v]['label'] = v.rpartition('_')[-1]
+            g.nodes[v]['label'] = v.rpartition('_')[-1]
     return g
 
 def axon_dendrites(g):
@@ -104,18 +104,18 @@ def plot_cell_topology(cell, label=False):
     g = cell_to_graph(cell, label=label)
     axon, sd = axon_dendrites(g)
     node_size = node_sizes(g)
-    weights = np.array([g.edge[e[0]][e[1]]['weight'] for e in g.edges()])
+    weights = np.array([g.edges[e[0], e[1]]['weight'] for e in g.edges()])
     # print min(weights), max(weights)
     pos = nx.graphviz_layout(g,prog='twopi',root=cell.path + '/comp_1')
     # pos = nx.spring_layout(g)
     nx.draw_networkx_edges(g, pos, width=10*weights/max(weights), edge_color='gray', alpha=0.8)
     nx.draw_networkx_nodes(g, pos, with_labels=False,
                            nnode_size=node_size * 500, 
-                           node_color=map(lambda x: 'k' if x in axon else 'gray', g.nodes()), 
+                           node_color=['k' if x in axon else 'gray' for x in g.nodes()],
                            linewidths=[1 if n.endswith('comp_1') else 0 for n in g.nodes()], 
                            alpha=0.8)
     if label:
-        labels = dict([(n, g.node[n]['label']) for n in g.nodes()])
+        labels = dict([(n, g.nodes[n]['label']) for n in g.nodes()])
         nx.draw_networkx_labels(g, pos, labels=labels)
     plt.title(cell.__class__.__name__)
 
