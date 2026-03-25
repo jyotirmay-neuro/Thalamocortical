@@ -47,9 +47,9 @@ plotdt = testutils.PLOTDT
 class TestNaF(ChannelTestBase):
     channelname = 'NaF'
     params = run_single_channel(channelname, 1e-9, simtime)
-    vm = np.asarray(params['Vm'].vec)        
-    gk = np.asarray(params['Gk'].vec)
-    tseries = np.array(range(0, len(params['Vm'].vec))) * simdt
+    vm = np.asarray(params['Vm'].vector)        
+    gk = np.asarray(params['Gk'].vector)
+    tseries = np.array(range(0, len(params['Vm'].vector))) * simdt
 
     def testNaF_Vm_Moose(self):
         print('%s', end='')
@@ -76,9 +76,9 @@ class TestNaF(ChannelTestBase):
 class TestNaF_TCR(ChannelTestBase):
     channelname = 'NaF_TCR'
     params = run_single_channel(channelname, 1e-9, simtime)
-    vm = np.asarray(params['Vm'].vec)        
-    gk = np.asarray(params['Gk'].vec)
-    tseries = np.array(range(0, len(params['Vm'].vec))) * simdt
+    vm = np.asarray(params['Vm'].vector)        
+    gk = np.asarray(params['Gk'].vector)
+    tseries = np.array(range(0, len(params['Vm'].vector))) * simdt
     def testNaF_TCR_Vm_Moose(self):
         print('%s', end='')
         err = compare_channel_data(self.vm, TestNaF_TCR.channelname, 'Vm', 'moose', x_range=(simtime/10.0, simtime))
@@ -104,9 +104,9 @@ class TestNaF_TCR(ChannelTestBase):
 class TestNaF2(ChannelTestBase):
     channelname = 'NaF2'
     params = run_single_channel(channelname, 1e-9, simtime)
-    vm = np.asarray(params['Vm'].vec)        
-    gk = np.asarray(params['Gk'].vec)
-    tseries = np.array(range(0, len(params['Vm'].vec))) * simdt
+    vm = np.asarray(params['Vm'].vector)        
+    gk = np.asarray(params['Gk'].vector)
+    tseries = np.array(range(0, len(params['Vm'].vector))) * simdt
     def testNaF2_Vm_Moose(self):
         print('%s', end='')
         err = compare_channel_data(self.vm, TestNaF2.channelname, 'Vm', 'moose', x_range=(simtime/10.0, simtime))
@@ -132,9 +132,9 @@ class TestNaF2(ChannelTestBase):
 class TestNaF2_nRT(ChannelTestBase):
     channelname = 'NaF2_nRT'
     params = run_single_channel(channelname, 1e-9, simtime)
-    vm = np.asarray(params['Vm'].vec)        
-    gk = np.asarray(params['Gk'].vec)
-    tseries = np.array(range(0, len(params['Vm'].vec))) * simdt
+    vm = np.asarray(params['Vm'].vector)        
+    gk = np.asarray(params['Gk'].vector)
+    tseries = np.array(range(0, len(params['Vm'].vector))) * simdt
     def testNaF2_nRT_Vm_Moose(self):
         print('%s', end='')
         err = compare_channel_data(self.vm, TestNaF2_nRT.channelname, 'Vm', 'moose', x_range=(simtime/10.0, simtime))
@@ -160,9 +160,9 @@ class TestNaF2_nRT(ChannelTestBase):
 class TestNaP(ChannelTestBase):
     channelname = 'NaP'
     params = run_single_channel(channelname, 1e-9, simtime)
-    vm = np.asarray(params['Vm'].vec)        
-    gk = np.asarray(params['Gk'].vec)
-    tseries = np.array(range(0, len(params['Vm'].vec))) * simdt
+    vm = np.asarray(params['Vm'].vector)        
+    gk = np.asarray(params['Gk'].vector)
+    tseries = np.array(range(0, len(params['Vm'].vector))) * simdt
     def testNaP_Vm_Moose(self):
         print('%s', end='')
         err = compare_channel_data(self.vm, TestNaP.channelname, 'Vm', 'moose', x_range=(simtime/10.0, simtime))
@@ -188,9 +188,9 @@ class TestNaP(ChannelTestBase):
 class TestNaPF(ChannelTestBase):
     channelname = 'NaPF'
     params = run_single_channel(channelname, 1e-9, simtime)
-    vm = np.asarray(params['Vm'].vec)        
-    gk = np.asarray(params['Gk'].vec)
-    tseries = np.array(range(0, len(params['Vm'].vec))) * simdt
+    vm = np.asarray(params['Vm'].vector)        
+    gk = np.asarray(params['Gk'].vector)
+    tseries = np.array(range(0, len(params['Vm'].vector))) * simdt
     def testNaPF_Vm_Moose(self):
         print('%s', end='')
         err = compare_channel_data(self.vm, TestNaPF.channelname, 'Vm', 'moose', x_range=(simtime/10.0, simtime))
@@ -216,9 +216,9 @@ class TestNaPF(ChannelTestBase):
 class TestNaPF_SS(ChannelTestBase):
     channelname = 'NaPF_SS'
     params = run_single_channel(channelname, 1e-9, simtime)
-    vm = np.asarray(params['Vm'].vec)        
-    gk = np.asarray(params['Gk'].vec)
-    tseries = np.array(range(0, len(params['Vm'].vec))) * simdt
+    vm = np.asarray(params['Vm'].vector)        
+    gk = np.asarray(params['Gk'].vector)
+    tseries = np.array(range(0, len(params['Vm'].vector))) * simdt
     def testNaPF_SS_Vm_Moose(self):
         print('%s', end='')
         err = compare_channel_data(self.vm, TestNaPF_SS.channelname, 'Vm', 'moose', x_range=(simtime/10.0, simtime))
@@ -244,9 +244,9 @@ class TestNaPF_SS(ChannelTestBase):
 class TestNaPF_TCR(ChannelTestBase):
     channelname = 'NaPF_TCR'
     params = run_single_channel(channelname, 1e-9, simtime)
-    vm = np.asarray(params['Vm'].vec)        
-    gk = np.asarray(params['Gk'].vec)
-    tseries = np.array(range(0, len(params['Vm'].vec))) * simdt
+    vm = np.asarray(params['Vm'].vector)        
+    gk = np.asarray(params['Gk'].vector)
+    tseries = np.array(range(0, len(params['Vm'].vector))) * simdt
     def testNaPF_TCR_Vm_Moose(self):
         print('%s', end='')
         err = compare_channel_data(self.vm, TestNaPF_TCR.channelname, 'Vm', 'moose', x_range=(simtime/10.0, simtime))

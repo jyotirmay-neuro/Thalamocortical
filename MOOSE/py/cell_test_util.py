@@ -186,8 +186,8 @@ class SingleCellCurrentStepTest(unittest.TestCase):
     def savedata(self):
         # Now save the data
         for table_id in self.data_container.children:
-            ts = np.linspace(0, self.simtime, len(table_id[0].vec))
-            data = np.vstack((ts, table_id[0].vec))
+            ts = np.linspace(0, self.simtime, len(table_id[0].vector))
+            data = np.vstack((ts, table_id[0].vector))
             fname = os.path.join(config.data_dir, 
                                  '%s_%s_%s_%s.dat' % (self.celltype, 
                                                       table_id[0].name,
@@ -201,10 +201,10 @@ class SingleCellCurrentStepTest(unittest.TestCase):
         the same in NEURON simulation if possible."""
         pylab.subplot(211)
         pylab.title('Soma Vm')
-        self.tseries = np.linspace(0, self.simtime, len(self.somaVmTab.vec))
-        pylab.plot(self.tseries*1e3, self.somaVmTab.vec * 1e3,
+        self.tseries = np.linspace(0, self.simtime, len(self.somaVmTab.vector))
+        pylab.plot(self.tseries*1e3, self.somaVmTab.vector * 1e3,
                    label='Vm (mV) - moose')
-        pylab.plot(self.tseries*1e3, self.injectionTab.vec * 1e9,
+        pylab.plot(self.tseries*1e3, self.injectionTab.vector * 1e9,
                    label='Stimulus (nA)')
         try:
             nrn_data = np.loadtxt('../nrn/data/%s_soma_Vm.dat' % \
@@ -217,9 +217,9 @@ class SingleCellCurrentStepTest(unittest.TestCase):
         pylab.legend()
         pylab.subplot(212)
         pylab.title('Presynaptic Vm')
-        pylab.plot(self.tseries*1e3, self.presynVmTab.vec * 1e3,
+        pylab.plot(self.tseries*1e3, self.presynVmTab.vector * 1e3,
                    label='Vm (mV) - moose')
-        pylab.plot(self.tseries*1e3, self.injectionTab.vec * 1e9,
+        pylab.plot(self.tseries*1e3, self.injectionTab.vector * 1e9,
                    label='Stimulus (nA)')
         try:
             nrn_data = np.loadtxt('../nrn/data/%s_presynaptic_Vm.dat' % \

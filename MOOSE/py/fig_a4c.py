@@ -89,7 +89,7 @@ def get_stimulus(path, start=10e-3, end=40e-3, dt=simdt):
     stim.startTime = start
     stim.stopTime = end
     stim.stepSize = dt
-    stim.vec = y
+    stim.vector = y
     return stim
 
 def create_stim(stimpath, starttime, stoptime, dt, filename=None):
@@ -103,7 +103,7 @@ def create_stim(stimpath, starttime, stoptime, dt, filename=None):
     # y[0] = -0.2e-9
     # y[-1] = -0.2e-9
     # The data columns are in ms and nA units respectively.
-    stim.vec = y
+    stim.vector = y
     stim.startTime = starttime
     # stim.stopTime = starttime + (stim_data[:,0][-1] - stim_data[:,0][0])*1e-3
     stim.stopTime = stoptime
@@ -121,7 +121,7 @@ def alpha_stimulus(stimpath, peak, peaktime, starttime, simtime, dt):
     # pylab.plot(t, y1)
     # pylab.show()
     stim = moose.StimulusTable(stimpath)
-    stim.vec = y1
+    stim.vector = y1
     stim.startTime = starttime
     stim.stopTime = simtime
     stim.stepSize = dt
@@ -154,12 +154,12 @@ def run_model():
     moose.reinit()
     utils.stepRun(simtime, 1e5*simdt, logger=config.logger)
     pylab.subplot(211)
-    pylab.plot(np.linspace(0, simtime, len(tab_d1.vec)), tab_d1.vec * 1e3, label='D1 Vm (mV)')
-    pylab.plot(np.linspace(0, simtime, len(tab_d2.vec)), tab_d2.vec * 1e3, label='D2 Vm (mV)')
-    pylab.plot(np.linspace(0, simtime, len(tab_soma.vec)), tab_soma.vec * 1e3, label='SOMA Vm (mV)')
+    pylab.plot(np.linspace(0, simtime, len(tab_d1.vector)), tab_d1.vector * 1e3, label='D1 Vm (mV)')
+    pylab.plot(np.linspace(0, simtime, len(tab_d2.vector)), tab_d2.vector * 1e3, label='D2 Vm (mV)')
+    pylab.plot(np.linspace(0, simtime, len(tab_soma.vector)), tab_soma.vector * 1e3, label='SOMA Vm (mV)')
     pylab.legend()
     pylab.subplot(212)
-    pylab.plot(np.linspace(0, simtime, len(tab_stim.vec)), tab_stim.vec * 1e9, label='Stimulus (nA)')
+    pylab.plot(np.linspace(0, simtime, len(tab_stim.vector)), tab_stim.vector * 1e9, label='Stimulus (nA)')
     pylab.legend()
     pylab.savefig('fig_a4c.png')
     pylab.show()

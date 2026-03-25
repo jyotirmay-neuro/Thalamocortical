@@ -191,28 +191,28 @@ class TestSingleComp(unittest.TestCase):
             ca_axis.plot(nrndata[:,0], nrndata[:,2], label='Ca (mM) - nrn')
         except IOError as e:
             print(e)
-        tseries = np.linspace(0, simtime, len(self.tables['Vm'].vec)) * 1e3
+        tseries = np.linspace(0, simtime, len(self.tables['Vm'].vector)) * 1e3
         # plotcount = len(channel_density) + 1
         # rows = int(np.sqrt(plotcount) + 0.5)
         # columns = int(plotcount * 1.0/rows + 0.5)
         # print plotcount, rows, columns
         # plt.subplot(rows, columns, 1)
-        vm_axis.plot(tseries, self.tables['Vm'].vec * 1e3, label='Vm (mV) - moose')
-        vm_axis.plot(tseries, self.tables['pulsegen'].vec * 1e12, label='inject (pA)')
-        ca_axis.plot(tseries, self.tables['Ca'].vec, label='Ca (mM) - moose')
+        vm_axis.plot(tseries, self.tables['Vm'].vector * 1e3, label='Vm (mV) - moose')
+        vm_axis.plot(tseries, self.tables['pulsegen'].vector * 1e12, label='inject (pA)')
+        ca_axis.plot(tseries, self.tables['Ca'].vector, label='Ca (mM) - moose')
         vm_axis.legend()
         ca_axis.legend()
         # ii = 2
         # for key, value in self.tables.items():
         #     if key.startswith('Gk'):
         #         plt.subplot(rows, columns, ii)
-        #         plt.plot(tseries, value.vec, label=key)                
+        #         plt.plot(tseries, value.vector, label=key)                
         #         ii += 1
         #         plt.legend()
         plt.show()
         data = np.vstack((tseries*1e-3, 
-                          self.tables['Vm'].vec, 
-                          self.tables['Ca'].vec))
+                          self.tables['Vm'].vector, 
+                          self.tables['Ca'].vector))
         np.savetxt('data/singlecomp_Vm.dat', 
                    np.transpose(data))
 

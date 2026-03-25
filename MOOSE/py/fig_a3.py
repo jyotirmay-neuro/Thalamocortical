@@ -97,8 +97,8 @@ def main():
     for ii, a in enumerate(amps):
         do_sim(model_dict['stimulus'], a)   
         config.logger.info('##### %d' % (model_dict['tab_vm'].size))
-        vm = model_dict['tab_vm'].vec
-        inject = model_dict['tab_stim'].vec.copy()
+        vm = model_dict['tab_vm'].vector
+        inject = model_dict['tab_stim'].vector.copy()
         t = np.linspace(0, simtime, len(vm))
         fname = 'data_fig_a3_%s.txt' % (chr(ord('A')+ii))
         np.savetxt(fname,

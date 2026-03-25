@@ -103,9 +103,9 @@ def vclamptest(compartment, vclamp, duration=50e-3, delay=150e-3, solver='ee', v
     moose.connect(vm, 'requestOut', compartment, 'getVm')
     utils.resetSim([mc.path, dc.path], simdt, plotdt, simmethod=solver)
     moose.start(simtime)
-    ivec = np.asarray(injected.vec)
-    vvec = np.asarray(voltage.vec)
-    vmvec = np.asarray(vm.vec)
+    ivec = np.asarray(injected.vector)
+    vvec = np.asarray(voltage.vector)
+    vmvec = np.asarray(vm.vector)
     ts = np.linspace(0, simtime, len(vvec))
     sidx = np.nonzero(np.diff(vvec) > 0)[0]
     eidx = np.nonzero(np.diff(vvec) < 0)[0]

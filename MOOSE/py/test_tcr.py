@@ -82,8 +82,8 @@ class TestTCR(SingleCellCurrentStepTest):
         for ii in moose.wildcardFind('/##[TYPE=VClamp]'):
             print(ii.path)
         self.runsim(simtime)
-        print(tab, len(tab.vec))
-        pylab.plot(pylab.linspace(0, simtime, len(tab.vec)), tab.vec, 'kx')
+        print(tab, len(tab.vector))
+        pylab.plot(pylab.linspace(0, simtime, len(tab.vector)), tab.vector, 'kx')
         self.plot_vm()
 
     # def testChannelDensities(self):
