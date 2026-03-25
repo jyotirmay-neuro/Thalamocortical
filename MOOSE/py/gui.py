@@ -259,7 +259,7 @@ class CellView(QtGui.QWidget):
             root = moose.element(root)
         cells = []
         for cell in moose.wildcardFind('%s/#[ISA=Neuron]' % (root.path)):
-            cells.append(cell[0].path.rpartition('/')[-1])
+            cells.append(cell.path.rpartition('/')[-1])
         return cells
         
     def getUpdatedCellListWidget(self):

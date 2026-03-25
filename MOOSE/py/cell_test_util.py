@@ -126,9 +126,9 @@ class SingleCellCurrentStepTest(unittest.TestCase):
             self.pulse_array)
         self.cell = params['cell']       
         for ch in moose.wildcardFind(self.cell.soma.path + '/##[ISA=ChanBase]'):
-            config.logger.debug('%s Ek = %g' % (ch.path, ch[0].Ek))
+            config.logger.debug('%s Ek = %g' % (ch.path, ch.Ek))
         for ch in moose.wildcardFind(self.cell.soma.path + '/##[ISA=CaConc]'):
-            config.logger.debug('%s tau = %g' % (ch.path, ch[0].tau))
+            config.logger.debug('%s tau = %g' % (ch.path, ch.tau))
                                 
         self.somaVmTab = params['somaVm']
         self.presynVmTab = params['presynVm']
