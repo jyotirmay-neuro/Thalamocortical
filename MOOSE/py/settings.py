@@ -28,12 +28,11 @@
 # 
 
 # Code:
-import exceptions
 import os
 
-class ReinitializationWarning(exceptions.Warning):
+class ReinitializationWarning(Warning):
     def __init__(self, *args, **kwargs):
-        exceptions.Warning.__init__(self, *args, **kwargs)
+        Warning.__init__(self, *args, **kwargs)
 
         
 class Settings(object):    
